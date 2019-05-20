@@ -1,0 +1,2 @@
+- [ ] fetch로 save
+- [ ] animation  
