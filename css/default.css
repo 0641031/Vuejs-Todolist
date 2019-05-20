@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css?family=Baloo+Bhai|Montserrat&display=swap');
+
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+.container{
+    margin-top:10vh
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+li {
+    list-style: none;
+    line-height: 2em;
+    border:solid 1px #ccc;
+    margin-top:4px;
+    padding:0 10px;
+    font-size: 1.1em;
+    color:#333;
+    background:#fff
+}
+.done {
+    text-decoration: line-through
+}
+a {
+    text-decoration: none;
+    cursor: pointer;
+    float:right;
+    font-size: 1.1em;
+    line-height: 2em;
+}
+h2 {
+    text-align: center;
+    font-size: 3em;
+    font-family: 'Baloo Bhai', cursive;
+    margin-top:10px
+}
+input[type=checkbox]{
+    font-size: 1.1em;
+    line-height: 2em
+}
+button > i {
+    color:#fff
+}
+#add_txt{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+#add_btn{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+a > i{
+    color:#777
+}
+p{
+    margin-top:5px
+}
