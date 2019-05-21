@@ -30,13 +30,13 @@
                     <ul class="col-md-6">
                         <li v-for="(todo,index) in todos">
                             <label v-bind:class="{ done: todo.isChecked }">
-                                <input type="checkbox" v-model="todo.isChecked"> 
+                                <input type="checkbox" v-model="todo.isChecked" @change="saveTodo()"> 
                                 {{ todo.title }}
                             </label>
                             <a @click="removeItem(index)"> <i class="fas fa-times"></i> </a>
                         </li>
-                        <a @click="deleteCompleted">Clear completed</a>
                         <p> {{ numberChecked }} / {{ this.todos.length }}</p>
+                        <a @click="deleteCompleted" class="delCompleted">Clear completed</a>
                     </ul>
                 </div>
 
@@ -49,16 +49,13 @@
         el: '#app',
         data: {
             item: '',
-            todos: [],
-            isChecked: false
+            todos: []
         },
         methods: {
             addItem() {
                 if(this.todos.length>=10){
                     alert("Remove item first");
-                }else if (this.item == "") {
-                   alert("Fill the text")
-                }else{
+                }else if (this.item != "") {
                     this.todos.push({ title: this.item, isChecked: false });
                     this.item = "";
                     this.saveTodo();
@@ -78,10 +75,8 @@
                 }
             },
             deleteCompleted(){
-                this.todos.filter((i,index) => {
-                    if(i.isChecked==true){
-                        this.todos.splice(index,1);
-                    }
+                this.todos =  this.todos.filter(i => {
+                    return i.isChecked == false
                 })
                 this.saveTodo();
             }
