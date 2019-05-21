@@ -38,6 +38,7 @@
                             <a @click="removeItem(index)"> <i class="fas fa-times"></i> </a>
                         </li>
                         <p> {{ numberChecked }} / {{ this.todos.length }}</p>
+                       
                         <a @click="deleteCompleted" class="delCompleted">Clear completed</a>
                     </ul>
                 </div>
@@ -46,52 +47,6 @@
         </div>
     </div>
 </body>
-<script>
-    var app = new Vue({
-        el: '#app',
-        data: {
-            item: '',
-            todos: []
-        },
-        methods: {
-            addItem() {
-                if(this.todos.length>=10){
-                    alert("Remove item first");
-                }else if (this.item != "") {
-                    this.todos.push({ title: this.item, isChecked: false });
-                    this.item = "";
-                    this.saveTodo();
-                }
-            },
-            removeItem(idx) {
-                this.todos.splice(idx, 1);
-                this.saveTodo();
-            },
-            saveTodo() {
-                localStorage.setItem('todos', JSON.stringify(this.todos));
-            },
-            loadTodo() {
-                this.todos = JSON.parse(localStorage.getItem("todos"));
-                if (!this.todos) {
-                    this.todos = []
-                }
-            },
-            deleteCompleted(){
-                this.todos =  this.todos.filter(i => {
-                    return i.isChecked == false
-                })
-                this.saveTodo();
-            }
-        },
-        mounted() {
-            this.loadTodo();
-        },
-        computed: {
-            numberChecked(){
-                return this.todos.filter(i=>i.isChecked==true).length
-            }
-        }
-    })
-</script>
+<script src="js/default.js"></script>
 
 </html>
