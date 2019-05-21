@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <ul class="col-md-6">
+                    <ul class="col-md-6"  v-if="todos.length > 0">
                         <li v-for="(todo,index) in todos">
                             <label v-bind:class="{ done: todo.isChecked }">
                                 <input type="checkbox" v-model="todo.isChecked" @change="saveTodo()"> 
