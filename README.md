@@ -1,3 +1,3 @@
 To-do list
-- [ ] fetch로 save
+- [ ] using component 
 - [ ] animation  
