@@ -4,3 +4,7 @@
 [https://velog.io/@kyusung/Vue-app-sfc-without-vue-cli](https://velog.io/@kyusung/Vue-app-sfc-without-vue-cli) 
 
 3. vue-cli로 todo list 작성
+
+4. firebase 호스팅
+
+5. [ ] firebase authentication, database 
