@@ -38,6 +38,25 @@ export default {
       this.todos = this.todos.filter(i => {
         return i.isChecked == false;
       });
+    },
+    saveTodo(){
+      localStorage.setItem("todos", JSON.stringify(this.todos));
+    },
+    loadTodo() {
+      this.todos = JSON.parse(localStorage.getItem("todos"));
+      if (!this.todos) {
+        this.todos = [];
+      }
+    },
+  },
+  mounted(){
+    this.loadTodo();
+  },
+  watch:{
+    todos:{
+      handler(todos){
+        this.saveTodo()
+      }
     }
   }
 }
