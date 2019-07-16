@@ -1,11 +1,17 @@
 <template>
     <div class="container">
         <div>
-            <h2> To do list </h2>
-            <div id="app">
-               <app-add-todo @addTodo="addTodo"></app-add-todo>
-               <app-todos :todos="todos" @removeTodo="removeTodo" @deleteCompleted="deleteCompleted"></app-todos>
-            </div>
+          <h2> To do list </h2>
+          <div id="app" v-if="auth">
+              <app-add-todo @addTodo="addTodo"></app-add-todo>
+              <app-todos :todos="todos" @removeTodo="removeTodo" @deleteCompleted="deleteCompleted"></app-todos>
+              <div class="row justify-content-center">
+                <div class="btn_logout col-md-6"><button class="btn btn-secondary" @click="googleLogout">logout</button></div>
+              </div>
+          </div>
+          <div v-else style="text-align:center">
+            <button class="btn btn-info" @click="googleLogin">Google Login</button>
+          </div>
         </div>
     </div>
 </template>
@@ -13,10 +19,12 @@
 <script>
 import AddTodo from './components/AddTodo'
 import Todos from './components/Todos'
+import firebase from 'firebase'
 export default {
-  data(){
+  data () {
     return {
-      todos: []
+      todos: [],
+      auth:false
     }
   },
   components:{
@@ -24,37 +32,54 @@ export default {
     appTodos:Todos
   },
   methods:{
-    addTodo(todo){
+    addTodo(todo) {
       if(this.todos.length<10){
-        this.todos.push({ title: todo, isChecked: false });
-      }else{
-        alert("Please delete item first")
+        this.todos.push({ title: todo, isChecked: false })
+      } else {
+        alert('Please delete item first')
       }
     },
-    removeTodo(index){
-        this.todos.splice(index, 1);
+    removeTodo(index) {
+      this.todos.splice(index, 1)
     },
-    deleteCompleted(){
+    deleteCompleted () {
       this.todos = this.todos.filter(i => {
-        return i.isChecked == false;
-      });
+        return i.isChecked == false
+      })
     },
-    saveTodo(){
-      localStorage.setItem("todos", JSON.stringify(this.todos));
+    saveTodo (){
+      localStorage.setItem("todos", JSON.stringify(this.todos))
     },
-    loadTodo() {
-      this.todos = JSON.parse(localStorage.getItem("todos"));
+    loadTodo (){
+      this.todos = JSON.parse(localStorage.getItem('todos'))
       if (!this.todos) {
-        this.todos = [];
+        this.todos = []
       }
     },
+    googleLogin () {
+      const provider = new firebase.auth.GoogleAuthProvider()
+      firebase.auth().signInWithPopup(provider).then(result => {
+        const token = result.credential.accessToken
+        const user = result.user
+        this.auth = true
+      }).catch(error => {
+        this.errorMessage = 'Please check your google account'
+        this.showError = true
+      })
+    },
+    googleLogout () {
+      firebase.auth().signOut().then(() => {
+        alert('logout success')
+        this.auth = false
+      })
+    }
   },
-  mounted(){
-    this.loadTodo();
+  mounted (){
+    this.loadTodo()
   },
-  watch:{
-    todos:{
-      handler(todos){
+  watch: {
+    todos: {
+      handler(todos) {
         this.saveTodo()
       }
     }
@@ -80,5 +105,8 @@ h2 {
   font-family: "Baloo Bhai", cursive;
   margin-top: 10px;
 }
-
+.btn_logout{
+  margin-top:10px;
+  text-align: right
+}
 </style>
