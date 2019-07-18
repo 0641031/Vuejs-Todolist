@@ -19,7 +19,8 @@
 <script>
 import AddTodo from './components/AddTodo'
 import Todos from './components/Todos'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 export default {
   data () {
     return {
